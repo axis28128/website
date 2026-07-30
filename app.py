@@ -16,7 +16,7 @@ def load_translations():
     translations = {}
     base_path = os.path.dirname(os.path.abspath(__file__))
     translations_dir = os.path.join(base_path, 'translations')
-    
+
     for lang in app.config['LANGUAGES']:
         file_path = os.path.join(translations_dir, f'{lang}.json')
         try:
@@ -37,7 +37,7 @@ TRANSLATIONS = load_translations()
 @app.route('/')
 def index():
     lang = session.get('lang', 'ro')
-    return render_template('index.html', 
+    return render_template('index.html',
                          lang=lang,
                          translations=TRANSLATIONS.get(lang, TRANSLATIONS['en']),
                          languages=app.config['LANGUAGES'])
@@ -58,7 +58,7 @@ def send_message():
         email = data.get('email')
         subject = data.get('subject')
         message = data.get('message')
-        
+
         # Create Discord embed
         embed = {
             "title": "New Contact Form Submission",
@@ -73,22 +73,22 @@ def send_message():
                 "text": "Axis FTC Contact Form"
             }
         }
-        
+
         payload = {
             "embeds": [embed]
         }
-        
+
         # Send to Discord
         response = requests.post(
             app.config['DISCORD_WEBHOOK_URL'],
             json=payload,
             headers={'Content-Type': 'application/json'}
         )
-        
+
         if response.status_code == 204:
             return jsonify({'status': 'success', 'message': 'Message sent successfully!'})
         else:
             return jsonify({'status': 'error', 'message': 'Failed to send message to Discord'}), 500
-            
+
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500

@@ -38,9 +38,6 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         />
 
-        <!-- Google Fonts -->
-        <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-     -->
         <style>
             video {
                 width: 100%;
@@ -139,13 +136,36 @@
                     #1e3a8a
                 ) !important;
             }
+
+            /* Remove solid colors so the overlay shows through everywhere */
+            .bg-gray-50, .bg-white, .bg-gray-900, .bg-gray-800 {
+                background-color: transparent !important;
+            }
         </style>
     </head>
     <body
-        class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-roboto transition-colors duration-300"
+        class="text-gray-800 dark:text-gray-100 font-roboto transition-colors duration-300 relative min-h-screen"
     >
+        <!-- === FULL SCREEN BLUE OVERLAY WITH WHITE STRIPES === -->
+        <div class="fixed inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
+
+            <!-- Solid Blue Base Background -->
+            <div class="absolute inset-0 bg-[#004aad] z-0"></div>
+
+            <!-- Transparent White Waves on Top -->
+            <svg class="absolute inset-0 w-full h-[150%] -top-[25%] z-0" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="rgba(255, 255, 255, 0.20)" d="M0,224L48,213.3C96,203,192,181,288,176C384,171,480,181,576,202.7C672,224,768,256,864,250.7C960,245,1056,203,1152,186.7C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                <path fill="rgba(255, 255, 255, 0.15)" d="M0,256L48,245.3C96,235,192,213,288,208C384,203,480,213,576,218.7C672,224,768,224,864,208C960,192,1056,160,1152,154.7C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                <path fill="rgba(255, 255, 255, 0.05)" d="M0,288L48,288C96,288,192,288,288,288C384,288,480,288,576,288C672,288,768,288,864,288C960,288,1056,288,1152,288C1248,288,1344,288,1392,288L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+
+            <!-- Readability Gradient (Ensures text and images pop above the blue) -->
+            <div class="absolute inset-0 bg-gradient-to-b from-white/70 via-white/30 to-white/70 dark:from-gray-900/70 dark:via-gray-900/30 dark:to-gray-900/70 z-10"></div>
+        </div>
+        <!-- ================================================ -->
+
         <!-- Header/Navigation -->
-        <header class="fixed w-full z-50 bg-white dark:bg-gray-800 shadow-md">
+        <header class="fixed w-full z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-md opacity-99">
             <div
                 class="container mx-auto px-4 py-3 flex justify-between items-center"
             >
@@ -212,7 +232,7 @@
                     </ul>
 
                     <div
-                        class="flex bg-gray-200 dark:bg-gray-700 rounded-full p-1 ml-4"
+                        class="flex bg-gray-200/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-full p-1 ml-4"
                     >
                         {% for language in languages %}
                         <button
@@ -225,7 +245,7 @@
                     </div>
 
                     <button
-                        class="theme-toggle ml-4 w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition"
+                        class="theme-toggle ml-4 w-10 h-10 rounded-full bg-gray-200/80 dark:bg-gray-700/80 backdrop-blur-sm flex items-center justify-center hover:bg-primary hover:text-white transition"
                     >
                         <i class="fas fa-moon dark:hidden"></i>
                         <i class="fas fa-sun hidden dark:block"></i>
@@ -252,7 +272,7 @@
                 <!-- Menu Panel -->
                 <div
                     id="mobile-menu-panel"
-                    class="fixed top-0 right-0 bottom-0 w-4/5 max-w-sm bg-white dark:bg-gray-800 shadow-lg p-6 transform transition-transform duration-300 translate-x-full"
+                    class="fixed top-0 right-0 bottom-0 w-4/5 max-w-sm bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-lg p-6 transform transition-transform duration-300 translate-x-full"
                 >
                     <div class="flex justify-between items-center mb-8">
                         <div class="flex items-center">
@@ -286,28 +306,28 @@
                             <li>
                                 <a
                                     href="#about"
-                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                                    class="block py-2 px-4 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 rounded"
                                     >{{ translations.about }}</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#team"
-                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                                    class="block py-2 px-4 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 rounded"
                                     >{{ translations.team }}</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#goals"
-                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                                    class="block py-2 px-4 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 rounded"
                                     >{{ translations.goals }}</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#sponsors"
-                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                                    class="block py-2 px-4 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 rounded"
                                     >{{ translations.sponsors }}</a
                                 >
                             </li>
@@ -323,7 +343,7 @@
 
                     <div class="flex flex-col space-y-4">
                         <div
-                            class="flex bg-gray-200 dark:bg-gray-700 rounded-full p-1"
+                            class="flex bg-gray-200/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-full p-1"
                         >
                             {% for language in languages %}
                             <button
@@ -336,7 +356,7 @@
                         </div>
 
                         <button
-                            class="theme-toggle w-full h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition"
+                            class="theme-toggle w-full h-10 rounded-full bg-gray-200/80 dark:bg-gray-700/80 backdrop-blur-sm flex items-center justify-center hover:bg-primary hover:text-white transition"
                         >
                             <i class="fas fa-moon dark:hidden mr-2"></i>
                             <i class="fas fa-sun hidden dark:block mr-2"></i>
@@ -349,9 +369,9 @@
 
         <!-- Hero Section -->
         <section
-            class="hero-section pt-32 pb-32 md:pt-48 md:pb-48 text-white relative"
+            class="hero-section pt-32 pb-32 md:pt-48 md:pb-48 text-white relative z-10"
         >
-            <!-- Background Image -->
+            <!-- Background Image & Video -->
             <div class="absolute inset-0">
                 <div class="video-container">
                     <video autoplay muted>
@@ -363,40 +383,33 @@
                 </div>
             </div>
 
-            <!-- Frosted Glass Overlay with Reduced Blur -->
-            <div class="absolute inset-0 bg-white/15 backdrop-blur-sm"></div>
+            <!-- Slightly darker frosted overlay to ensure text readability over the video -->
+            <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
 
-            <!-- Fog Effect Layer -->
-            <div
-                class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/10"
-            ></div>
             <!-- Content -->
             <div class="container mx-auto px-4 text-center relative z-10">
                 <div class="flex justify-center mb-6">
-                    <!-- <div class="bg-white/20 px-4 py-1 rounded-full text-sm backdrop-blur-sm">
-                    <i class="fas fa-star mr-2"></i>{{ translations.rookie }}
-                </div> -->
                 </div>
                 <h1
-                    class="text-4xl md:text-6xl lg:text-7xl font-bold font-orbitron mb-6"
+                    class="text-4xl md:text-6xl lg:text-7xl font-bold font-orbitron mb-6 drop-shadow-lg"
                 >
                     {{ translations.hero_title }}
                 </h1>
                 <p
-                    class="text-xl md:text-2xl lg:text-3xl max-w-3xl mx-auto mb-10"
+                    class="text-xl md:text-2xl lg:text-3xl max-w-3xl mx-auto mb-10 drop-shadow-md"
                 >
                     {{ translations.hero_subtitle }}
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a
                         href="#about"
-                        class="bg-white text-primary px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition text-lg"
+                        class="bg-white text-primary px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition text-lg shadow-lg"
                     >
                         {{ translations.learn_more }}
                     </a>
                     <a
                         href="#contact"
-                        class="bg-transparent border-2 border-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition text-lg"
+                        class="bg-transparent border-2 border-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition text-lg shadow-lg"
                     >
                         {{ translations.support_us }}
                     </a>
@@ -407,7 +420,7 @@
             <div
                 class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
             >
-                <a href="#about" class="text-white text-3xl">
+                <a href="#about" class="text-white text-3xl drop-shadow-md">
                     <i class="fas fa-chevron-down"></i>
                 </a>
             </div>
@@ -428,12 +441,7 @@
         </style>
 
         <!-- About Section -->
-        <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
-            <!-- <div class="absolute inset-0">
-        <img src="{{ url_for('static', filename='images/about.jpg') }}"
-             alt="Team Workshop Background"
-             class="w-full h-full object-cover">
-        </div> -->
+        <section id="about" class="py-20 relative z-10">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
                     <h2
@@ -447,7 +455,7 @@
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="md:w-1/2">
                         <img
-                            src="https://res.cloudinary.com/dsuxl1x7u/image/upload/v1756141031/robot_wazvue.jpg"
+                            src="https://websitecdn.aristotel.xyz/0S1A1721.jpg"
                             alt="Our Robot"
                             class="w-full h-130 object-cover rounded-xl shadow-lg"
                         />
@@ -458,17 +466,17 @@
                             {{ translations.story_title }}
                         </h3>
                         <p
-                            class="text-lg mb-6 text-gray-600 dark:text-gray-300"
+                            class="text-lg mb-6 text-gray-800 dark:text-gray-200"
                         >
                             {{ translations.story_text1 }}
                         </p>
                         <p
-                            class="text-lg mb-6 text-gray-600 dark:text-gray-300"
+                            class="text-lg mb-6 text-gray-800 dark:text-gray-200"
                         >
                             {{ translations.story_text2 }}
                         </p>
                         <p
-                            class="text-lg mb-6 text-gray-600 dark:text-gray-300"
+                            class="text-lg mb-6 text-gray-800 dark:text-gray-200"
                         >
                             {{ translations.story_text3 }}
                         </p>
@@ -481,7 +489,7 @@
                                 <a
                                     href="https://ftcscout.org/events/2024/MDCHS1/matches"
                                     target="_blank"
-                                    class="inline-flex items-center bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-500 text-yellow-700 dark:text-yellow-300 px-4 py-2 rounded-full text-sm mr-3 mb-3 hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition"
+                                    class="inline-flex items-center bg-yellow-100/80 dark:bg-yellow-900/30 backdrop-blur-sm border border-yellow-500 text-yellow-700 dark:text-yellow-300 px-4 py-2 rounded-full text-sm mr-3 mb-3 hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition"
                                 >
                                     <i class="fas fa-trophy mr-2"></i>{{
                                     translations.competition1 }}
@@ -489,7 +497,7 @@
                                 <a
                                     href="https://ftcscout.org/events/2024/MDCHS2/matches"
                                     target="_blank"
-                                    class="inline-flex items-center bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-500 text-yellow-700 dark:text-yellow-300 px-4 py-2 rounded-full text-sm mr-3 mb-3 hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition"
+                                    class="inline-flex items-center bg-yellow-100/80 dark:bg-yellow-900/30 backdrop-blur-sm border border-yellow-500 text-yellow-700 dark:text-yellow-300 px-4 py-2 rounded-full text-sm mr-3 mb-3 hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition"
                                 >
                                     <i class="fas fa-robot mr-2"></i>{{
                                     translations.competition2 }}
@@ -499,7 +507,7 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div
-                                class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow"
+                                class="bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm p-4 rounded-lg shadow"
                             >
                                 <div
                                     class="text-3xl font-bold text-primary mb-2"
@@ -507,13 +515,13 @@
                                     2
                                 </div>
                                 <div
-                                    class="font-medium text-gray-600 dark:text-gray-300"
+                                    class="font-medium text-gray-800 dark:text-gray-200"
                                 >
                                     {{ translations.experience }}
                                 </div>
                             </div>
                             <div
-                                class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow"
+                                class="bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm p-4 rounded-lg shadow"
                             >
                                 <div
                                     class="text-3xl font-bold text-primary mb-2"
@@ -521,35 +529,35 @@
                                     15
                                 </div>
                                 <div
-                                    class="font-medium text-gray-600 dark:text-gray-300"
+                                    class="font-medium text-gray-800 dark:text-gray-200"
                                 >
                                     {{ translations.members }}
                                 </div>
                             </div>
                             <div
-                                class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow"
+                                class="bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm p-4 rounded-lg shadow"
                             >
                                 <div
                                     class="text-3xl font-bold text-primary mb-2"
                                 >
-                                    2
+                                    4
                                 </div>
                                 <div
-                                    class="font-medium text-gray-600 dark:text-gray-300"
+                                    class="font-medium text-gray-800 dark:text-gray-200"
                                 >
                                     {{ translations.competitions }}
                                 </div>
                             </div>
                             <div
-                                class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow"
+                                class="bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm p-4 rounded-lg shadow"
                             >
                                 <div
                                     class="text-3xl font-bold text-primary mb-2"
                                 >
-                                    500+
+                                    1
                                 </div>
                                 <div
-                                    class="font-medium text-gray-600 dark:text-gray-300"
+                                    class="font-medium text-gray-800 dark:text-gray-200"
                                 >
                                     {{ translations.hours }}
                                 </div>
@@ -561,7 +569,7 @@
         </section>
 
         <!-- Team Members Section with Background -->
-        <section id="team" class="py-20 relative">
+        <section id="team" class="py-20 relative z-10">
             <!-- Background Image -->
             <div class="absolute inset-0">
                 <img
@@ -572,16 +580,16 @@
             </div>
 
             <!-- Dark Overlay -->
-            <div class="absolute inset-0 bg-black/50 dark:bg-black/60"></div>
+            <div class="absolute inset-0 bg-black/50 dark:bg-black/60 backdrop-blur-[1px]"></div>
 
             <div class="container mx-auto px-4 relative z-10">
                 <div class="text-center mb-16">
                     <h2
-                        class="text-3xl md:text-4xl font-bold font-orbitron mb-4 text-white"
+                        class="text-3xl md:text-4xl font-bold font-orbitron mb-4 text-white drop-shadow-md"
                     >
                         {{ translations.team_title }}
                     </h2>
-                    <p class="text-lg max-w-2xl mx-auto mb-6 text-gray-200">
+                    <p class="text-lg max-w-2xl mx-auto mb-6 text-gray-200 drop-shadow-md">
                         {{ translations.team_subtitle }}
                     </p>
                     <div class="w-20 h-1 bg-accent mx-auto"></div>
@@ -590,7 +598,7 @@
         </section>
 
         <!-- Goals Section -->
-        <section id="goals" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <section id="goals" class="py-20 relative z-10">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
                     <h2
@@ -598,7 +606,7 @@
                     >
                         {{ translations.goals_title }}
                     </h2>
-                    <p class="text-xl max-w-2xl mx-auto">
+                    <p class="text-xl max-w-2xl mx-auto text-gray-800 dark:text-gray-200">
                         {{ translations.goals_subtitle }}
                     </p>
                     <div class="w-20 h-1 bg-accent mx-auto mt-4"></div>
@@ -608,7 +616,7 @@
                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
                     <div
-                        class="goal-card bg-white/10 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
+                        class="goal-card bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
                     >
                         <div class="text-4xl text-accent mb-4">
                             <i class="fas fa-trophy"></i>
@@ -620,7 +628,7 @@
                     </div>
 
                     <div
-                        class="goal-card bg-white/10 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
+                        class="goal-card bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
                     >
                         <div class="text-4xl text-accent mb-4">
                             <i class="fas fa-robot"></i>
@@ -632,7 +640,7 @@
                     </div>
 
                     <div
-                        class="goal-card bg-white/10 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
+                        class="goal-card bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
                     >
                         <div class="text-4xl text-accent mb-4">
                             <i class="fas fa-users"></i>
@@ -644,7 +652,7 @@
                     </div>
 
                     <div
-                        class="goal-card bg-white/10 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
+                        class="goal-card bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
                     >
                         <div class="text-4xl text-accent mb-4">
                             <i class="fas fa-book"></i>
@@ -656,7 +664,7 @@
                     </div>
 
                     <div
-                        class="goal-card bg-white/10 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
+                        class="goal-card bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
                     >
                         <div class="text-4xl text-accent mb-4">
                             <i class="fas fa-handshake"></i>
@@ -668,7 +676,7 @@
                     </div>
 
                     <div
-                        class="goal-card bg-white/10 backdrop-blur-sm p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
+                        class="goal-card bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-xl transition-all duration-300 hover:bg-primary/80"
                     >
                         <div class="text-4xl text-accent mb-4">
                             <i class="fas fa-graduation-cap"></i>
@@ -683,7 +691,7 @@
         </section>
 
         <!-- Sponsors Section with Background -->
-        <section id="sponsors" class="py-14 relative">
+        <section id="sponsors" class="py-14 relative z-10">
             <!-- Background Image -->
             <div class="absolute inset-0">
                 <img
@@ -694,25 +702,25 @@
             </div>
 
             <!-- Dark Overlay -->
-            <div class="absolute inset-0 bg-black/50 dark:bg-black/60"></div>
+            <div class="absolute inset-0 bg-black/50 dark:bg-black/60 backdrop-blur-[1px]"></div>
 
             <div class="container mx-auto px-4 relative z-10">
                 <div class="text-center mb-16">
                     <h2
-                        class="text-3xl md:text-4xl font-bold font-orbitron mb-4 text-white"
+                        class="text-3xl md:text-4xl font-bold font-orbitron mb-4 text-white drop-shadow-md"
                     >
                         {{ translations.sponsors_title }}
                     </h2>
-                    <p class="text-lg max-w-2xl mx-auto mb-6 text-gray-200">
+                    <p class="text-lg max-w-2xl mx-auto mb-6 text-gray-200 drop-shadow-md">
                         {{ translations.sponsors_subtitle }}
                     </p>
                     <div class="w-20 h-1 bg-accent mx-auto"></div>
                 </div>
                 <div
-                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 items-center"
+                    class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center"
                 >
                     <div
-                        class="sponsor-logo bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
+                        class="sponsor-logo bg-white/80 backdrop-blur-md p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
                     >
                         <img
                             src="https://res.cloudinary.com/dsuxl1x7u/image/upload/v1756141071/classvit_qmfcax.png"
@@ -721,16 +729,16 @@
                         />
                     </div>
                     <div
-                        class="sponsor-logo bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
+                        class="sponsor-logo bg-white/80 backdrop-blur-md p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
                     >
                         <img
-                            src="https://res.cloudinary.com/dsuxl1x7u/image/upload/v1756141072/ltra_eejpbv.png"
-                            alt="LTR Aristotel"
+                            src="https://www.iucosoft.com/resources/images/logo/logo-iucosoft-site.png"
+                            alt="iucosoft"
                             class="max-h-16"
                         />
                     </div>
                     <div
-                        class="sponsor-logo bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
+                        class="sponsor-logo bg-white/80 backdrop-blur-md p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
                     >
                         <img
                             src="https://res.cloudinary.com/dsuxl1x7u/image/upload/v1758485693/Black-on-White-1000x600-1-removebg-preview_mptr6u.png"
@@ -738,15 +746,42 @@
                             class="max-h-16"
                         />
                     </div>
+                    <div
+                        class="sponsor-logo bg-white/80 backdrop-blur-md p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
+                    >
+                        <img
+                            src="https://websitecdn.aristotel.xyz/DAVA_BIG.png"
+                            alt="endava"
+                            class="max-h-16"
+                        />
+                    </div>
+                    <div
+                        class="sponsor-logo bg-white/80 backdrop-blur-md p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
+                    >
+                        <img
+                            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstroyka.md%2Fimages%2Fcompanies%2Flogos%2Flogo_metancor-com-srl-1.png&f=1&nofb=1&ipt=3798a6cbddea869e106764519ac40aea6e1c469d24fa78e95f770f7b4aee79c6"
+                            alt="Metancor"
+                            class="max-h-16"
+                        />
+                    </div>
+                    <div
+                        class="sponsor-logo bg-white/80 backdrop-blur-md p-6 rounded-lg shadow-md flex items-center justify-center h-32 transition"
+                    >
+                        <img
+                            src="https://websitecdn.aristotel.xyz/maiblogo-removebg-preview.png"
+                            alt="maib"
+                            class="max-h-16"
+                        />
+                    </div>
                 </div>
 
                 <div class="mt-16 text-center">
-                    <h3 class="text-2xl font-bold mb-6 text-white">
+                    <h3 class="text-2xl font-bold mb-6 text-white drop-shadow-md">
                         {{ translations.support_us_text }}
                     </h3>
                     <a
                         href="#contact"
-                        class="inline-block bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-secondary transition"
+                        class="inline-block bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-secondary transition shadow-lg"
                         >{{ translations.become_sponsor }}</a
                     >
                 </div>
@@ -754,7 +789,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-white dark:bg-gray-900">
+        <section id="contact" class="py-20 relative z-10">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
                     <h2
@@ -763,153 +798,90 @@
                         {{ translations.contact_title }}
                     </h2>
                     <p
-                        class="text-lg max-w-2xl mx-auto mb-6 text-gray-600 dark:text-gray-300"
+                        class="text-lg max-w-2xl mx-auto mb-6 text-gray-800 dark:text-gray-200"
                     >
                         {{ translations.contact_subtitle }}
                     </p>
                     <div class="w-20 h-1 bg-accent mx-auto"></div>
                 </div>
 
-                <div class="flex flex-col lg:flex-row gap-10">
-                    <div class="lg:w-1/2">
-                        <!-- Update the form with proper name attributes -->
-                        <form class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label
-                                        class="block text-lg mb-2 font-medium"
-                                        >{{ translations.name_label }}</label
-                                    >
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800"
-                                    />
+                <div class="flex justify-center">
+                    <div class="w-full max-w-2xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-8 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/30">
+                        <h3 class="text-2xl font-bold mb-6 text-center">
+                            {{ translations.contact_info }}
+                        </h3>
+
+                        <div class="space-y-5">
+                            <div class="flex items-start justify-center">
+                                <div class="text-primary text-xl mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
                                 </div>
                                 <div>
-                                    <label
-                                        class="block text-lg mb-2 font-medium"
-                                        >{{ translations.email_label }}</label
+                                    <h4 class="font-bold text-lg">
+                                        {{ translations.location }}
+                                    </h4>
+                                    <p
+                                        class="text-gray-700 dark:text-gray-300"
                                     >
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800"
-                                    />
+                                        Liceul Teoretic Republican
+                                        "Aristotel"<br />Str. Sprâncenoaia
+                                        1<br />Chișinău, Republica Moldova
+                                    </p>
                                 </div>
                             </div>
 
-                            <div>
-                                <label class="block text-lg mb-2 font-medium"
-                                    >{{ translations.subject_label }}</label
+                            <div class="flex items-start justify-center">
+                                <div class="text-primary text-xl mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">
+                                        {{ translations.email }}
+                                    </h4>
+                                    <p
+                                        class="text-gray-700 dark:text-gray-300"
+                                    >
+                                        axis@aristotel.xyz
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start justify-center">
+                                <div class="text-primary text-xl mr-4 mt-1">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">
+                                        {{ translations.phone }}
+                                    </h4>
+                                    <p
+                                        class="text-gray-700 dark:text-gray-300"
+                                    >
+                                        +373 22 281 464<br />{{
+                                        translations.ask_for }} Doamna Papuc
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center">
+                            <h4 class="font-bold text-lg mb-4">
+                                {{ translations.follow }}
+                            </h4>
+                            <div class="flex justify-center space-x-4">
+                                <a
+                                    href="https://www.instagram.com/axis.ftc/"
+                                    class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition shadow-md"
                                 >
-                                <input
-                                    type="text"
-                                    name="subject"
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800"
-                                />
-                            </div>
-
-                            <div>
-                                <label class="block text-lg mb-2 font-medium"
-                                    >{{ translations.message_label }}</label
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a
+                                    href="https://ftcscout.org/teams/28128"
+                                    target="_blank"
+                                    class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition shadow-md"
                                 >
-                                <textarea
-                                    name="message"
-                                    rows="5"
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800"
-                                ></textarea>
-                            </div>
-
-                            <button
-                                type="submit"
-                                class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-secondary transition"
-                            >
-                                {{ translations.send_button }}
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="lg:w-1/2">
-                        <div
-                            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl h-full"
-                        >
-                            <h3 class="text-2xl font-bold mb-6">
-                                {{ translations.contact_info }}
-                            </h3>
-
-                            <div class="space-y-5">
-                                <div class="flex items-start">
-                                    <div class="text-primary text-xl mr-4 mt-1">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-lg">
-                                            {{ translations.location }}
-                                        </h4>
-                                        <p
-                                            class="text-gray-600 dark:text-gray-300"
-                                        >
-                                            Liceul Teoretic Republican
-                                            "Aristotel"<br />Str. Sprâncenoaia
-                                            1<br />Chișinău, Republica Moldova
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start">
-                                    <div class="text-primary text-xl mr-4 mt-1">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-lg">
-                                            {{ translations.email }}
-                                        </h4>
-                                        <p
-                                            class="text-gray-600 dark:text-gray-300"
-                                        >
-                                            axis@aristotel.xyz
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start">
-                                    <div class="text-primary text-xl mr-4 mt-1">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-lg">
-                                            {{ translations.phone }}
-                                        </h4>
-                                        <p
-                                            class="text-gray-600 dark:text-gray-300"
-                                        >
-                                            +373 22 281 464<br />{{
-                                            translations.ask_for }} Doamna Papuc
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-8">
-                                <h4 class="font-bold text-lg mb-4">
-                                    {{ translations.follow }}
-                                </h4>
-                                <div class="flex space-x-4">
-                                    <a
-                                        href="https://www.instagram.com/axis.ftc/"
-                                        class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition"
-                                    >
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                    <a
-                                        href="https://ftcscout.org/teams/28128"
-                                        target="_blank"
-                                        class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-secondary transition"
-                                    >
-                                        <i class="fas fa-robot"></i>
-                                    </a>
-                                </div>
+                                    <i class="fas fa-robot"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -918,18 +890,16 @@
         </section>
 
         <!-- Footer -->
-        <footer class="bg-blue-800 text-white py-12">
+        <footer class="bg-[#003b8a]/90 backdrop-blur-sm text-white py-12 relative z-10 border-t border-white/10">
             <div class="container mx-auto px-4">
-                <div
-                    class="flex flex-col md:flex-row justify-between items-center"
-                >
-                    <div class="mb-6 md:mb-0">
+                <div class="flex flex-col items-center text-center">
+                    <div class="mb-6">
                         <a
                             href="https://ftcscout.org/teams/28128"
-                            class="flex items-center"
+                            class="flex flex-col items-center"
                             target="_blank"
                         >
-                            <div class="p-2 rounded-lg mr-3">
+                            <div class="p-2 rounded-lg mb-2">
                                 <img
                                     src="https://res.cloudinary.com/dsuxl1x7u/image/upload/v1760504930/logo3_a0lpgk.png"
                                     alt="Axis FTC Logo"
@@ -937,52 +907,26 @@
                                 />
                             </div>
                             <h2 class="text-xl font-bold font-orbitron">
-                                Axis FTC
-                                <span class="text-primary">#28128</span>
+                                <span class="text-primary">28128</span>
+                                axis
                             </h2>
                         </a>
-                        <p class="mt-3 text-gray-400">
+                        <p class="mt-3 text-gray-300">
                             {{ translations.footer_text }}
                         </p>
                     </div>
 
-                    <div class="text-center md:text-right">
-                        <p class="text-gray-400">
+                    <div class="mb-8">
+                        <p class="text-gray-300">
                             {{ translations.copyright }}
                         </p>
-                        <p class="text-gray-400 mt-2">
+                        <p class="text-gray-300 mt-2">
                             {{ translations.trademark }}
-                        </p>
-                        <p class="text-red-600 mt-2">
-                            Site-ul trece prin niște schimbări. Dacă întâmpinați
-                            probleme, glitch-uri, etc. contactați
-                            me@danihere.xyz
                         </p>
                     </div>
                 </div>
 
-                <div
-                    class="mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center"
-                >
-                    <div class="mb-4 md:mb-0">
-                        <a
-                            href="https://ftcscout.org/events/2024/MDCHS1/matches"
-                            target="_blank"
-                            class="text-primary hover:text-secondary mr-4"
-                        >
-                            <i class="fas fa-trophy mr-1"></i>{{
-                            translations.competition1 }}
-                        </a>
-                        <a
-                            href="https://ftcscout.org/events/2024/MDCHS2/matches"
-                            target="_blank"
-                            class="text-primary hover:text-secondary"
-                        >
-                            <i class="fas fa-robot mr-1"></i>{{
-                            translations.competition2 }}
-                        </a>
-                    </div>
-                </div>
+
             </div>
         </footer>
 
